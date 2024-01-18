@@ -27,31 +27,31 @@ export default (bill) => {
     <div class="container dashboard-form" data-testid="dashboard-form">
       <div class="row">
         <div class="col-sm" id="dashboard-form-col1">
-          <label for="expense-type" class="bold-label">Type de dépense</label>
+          <div class="bold-label">Type de dépense</div>
           <div id="expense-type" class='input-field'> ${bill.type} </div>
-          <label for="expense-name" class="bold-label">Nom de la dépense</label>
+          <div class="bold-label">Nom de la dépense</div>
           <div id="expense-name" class='input-field'> ${bill.name} </div>
-          <label for="datepicker" class="bold-label">Date</label>
+          <div class="bold-label">Date</div>
           <div id="datepicker" class='input-field input-flex'>
             <span>${formatDate(bill.date)}</span>
             <span> ${calendarIcon} </span>
           </div>
         </div>
         <div class="col-sm" id="dashboard-form-col2">
-          <label for="commentary" class="bold-label">Commentaire</label>
+          <div class="bold-label">Commentaire</div>
           <div id="commentary" class='textarea-field' style="height: 300px;"> ${bill.commentary} </div>
         </div>
       </div>
       <div class="row">
         <div class="col-sm">
-          <label for="amount" class="bold-label">Montant TTC </label>
+          <div class="bold-label">Montant TTC </div>
           <div id="amount" class='input-field input-flex'>
             <span data-testid="amount-d">${bill.amount}</span>
             <span> ${euroIcon} </span>
           </div>
         </div>
         <div class="col-sm">
-          <label for="vat" class="bold-label">TVA</label>
+          <div class="bold-label">TVA</div>
           <div id='vat-flex-container'>
             <div id="vat" class='input-field input-flex vat-flex'>
               <span>${bill.vat}</span>
@@ -66,7 +66,7 @@ export default (bill) => {
       </div>
       <div class="row">
         <div class="col-sm">
-          <label for="file" class="bold-label">Justificatif</label>
+          <div class="bold-label">Justificatif</div>
             <div id="file" class='input-field input-flex file-flex'>
               <span id="file-name-admin">${bill.fileName}</span>
             <div class='icons-container'>
@@ -78,12 +78,12 @@ export default (bill) => {
       <div class="row">
        ${bill.status === 'pending' ? (`
         <div class="col-sm">
-          <label for="commentary2" class="bold-label">Ajouter un commentaire</label>
-          <textarea id="commentary2" class="form-control blue-border" data-testid="commentary2" rows="5"></textarea>
+          <label for="admin-commentary" class="bold-label">Ajouter un commentaire</label>
+          <textarea id="admin-commentary" class="form-control blue-border" data-testid="commentary2" rows="5"></textarea>
         </div>
        `) : (`
         <div class="col-sm">
-          <label for="your-commentary-admin" class="bold-label">Votre commentaire</label>
+          <div class="bold-label">Votre commentaire</div>
           <div id="your-commentary-admin" class='input-field'> ${bill.commentAdmin} </div>
         </div>
        `)}

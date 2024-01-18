@@ -114,7 +114,7 @@ export default class {
     const newBill = {
       ...bill,
       status: 'accepted',
-      commentAdmin: $('#commentary2').val()
+      commentAdmin: $('#admin-commentary').val()
     }
     this.updateBill(newBill)
     this.onNavigate(ROUTES_PATH['Dashboard'])
@@ -124,7 +124,7 @@ export default class {
     const newBill = {
       ...bill,
       status: 'refused',
-      commentAdmin: $('#commentary2').val()
+      commentAdmin: $('#admin-commentary').val()
     }
     this.updateBill(newBill)
     this.onNavigate(ROUTES_PATH['Dashboard'])
