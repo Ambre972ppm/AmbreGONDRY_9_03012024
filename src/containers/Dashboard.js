@@ -80,8 +80,10 @@ export default class {
 
   handleClickIconEye = () => {
     const billUrl = $('#icon-eye-d').attr("data-bill-url")
-    const imgWidth = Math.floor($('#modaleFileAdmin1').width() * 0.8)
+    const imgWidth = Math.floor($('#modaleFileAdmin1').width() * 0.5)
     $('#modaleFileAdmin1').find(".modal-body").html(`<div style='text-align: center;'><img width=${imgWidth} src=${billUrl} alt="Bill"/></div>`)
+    $('#modaleFileAdmin1').find(".modal-footer").html(`<div class="modal-button-download"><a href="${billUrl}" download="justificatif" id='btn-download-bill' class="btn btn-primary">Télecharger <img src="./src/assets/svg/download.svg"></a></div>`)
+
     if (typeof $('#modaleFileAdmin1').modal === 'function') $('#modaleFileAdmin1').modal('show')
   }
 

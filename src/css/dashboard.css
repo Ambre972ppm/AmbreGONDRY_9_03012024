@@ -106,6 +106,15 @@
   text-align: center;
 }
 
+#btn-download-bill {
+  background-color: #0E5AE5;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 26px;
+  letter-spacing: 0.2px;
+}
+
 .dashboard-svg-container {
   position: absolute;
   top: 40%; left: 50%;
