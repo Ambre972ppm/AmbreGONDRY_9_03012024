@@ -16,6 +16,8 @@ export const modal = () => (`
         </div>
         <div class="modal-body" data-toggle="modal">
         </div>
+        <div class="modal-footer">   
+        </div>
       </div>
     </div>
   </div>

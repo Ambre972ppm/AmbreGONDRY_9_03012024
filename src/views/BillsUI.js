@@ -37,6 +37,8 @@ export default ({ data: bills, loading, error }) => {
           </div>
           <div class="modal-body">
           </div>
+          <div class="modal-footer">
+          </div>
         </div>
       </div>
     </div>
