@@ -9,6 +9,7 @@ export default class NewBill {
     const formNewBill = this.document.querySelector(`form[data-testid="form-new-bill"]`)
     formNewBill.addEventListener("submit", this.handleSubmit)
     const file = this.document.querySelector(`input[data-testid="file"]`)
+    // s'il n'y a pas de fichier on ecoute pas le changement avant que le fichier soit existant
     if (file) {
       file.addEventListener("change", this.handleChangeFile);
     }    
@@ -20,6 +21,12 @@ export default class NewBill {
   handleChangeFile = e => {
     e.preventDefault()
     const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
+    // si le fichier n'est pas au format pdf on envoi une alerte pour informer que le format n'est pas bon 
+    
+    if (file.type !== "application/pdf") {
+      alert("Seuls les fichiers PDF sont autorisés.");
+      return;
+    }
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
