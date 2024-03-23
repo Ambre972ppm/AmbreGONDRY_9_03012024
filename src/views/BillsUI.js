@@ -4,6 +4,31 @@ import LoadingPage from "./LoadingPage.js"
 
 import Actions from './Actions.js'
 
+const frToEn = {
+  "Jan":"Jan",
+  "Fév":"Feb",
+  "Mar":"Mar",
+  "Avr":"Apr",
+  "Mai":"May",
+  "Jui":"Jun",
+  "Jul":"Jul",
+  "Aoû":"Aug",
+  "Sep":"Sep",
+  "Oct":"Oct",
+  "Nov":"Nov",
+  "Déc":"Dec"
+}
+
+function getDate(input) {
+  if(input.includes(' ')) {
+    const month = input.split(" ")[1].slice(0, 3);
+    return new Date(input.replace(month, frToEn[month]));
+  } else {
+    return new Date(input)
+  }
+  
+}
+
 const row = (bill) => {
   return (`
     <tr>
@@ -49,13 +74,15 @@ export default ({ data: bills, loading, error }) => {
   } else if (error) {
     return ErrorPage(error)
   }
+
+  const sortedBills = Array.isArray(bills) ? bills.sort((a, b) => (getDate(b.date))- (getDate(a.date))) : [];
   
   return (`
     <div class='layout'>
       ${VerticalLayout(120)}
       <div class='content'>
         <div class='content-header'>
-          <div class='content-title'> Mes notes de frais </div>
+          <div class='content-title' data-testid="my-bills"> Mes notes de frais </div>
           <button type="button" data-testid='btn-new-bill' class="btn btn-primary">Nouvelle note de frais</button>
         </div>
         <div id="data-table">
@@ -71,7 +98,7 @@ export default ({ data: bills, loading, error }) => {
               </tr>
           </thead>
           <tbody data-testid="tbody">
-            ${rows(bills.sort((a, b) => new Date(b.date) - new Date(a.date)))}
+            ${rows(sortedBills)}
           </tbody>
           </table>
         </div>
