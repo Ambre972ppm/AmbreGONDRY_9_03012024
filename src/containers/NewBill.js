@@ -18,17 +18,22 @@ export default class NewBill {
     this.billId = null
     new Logout({ document, localStorage, onNavigate })
   }
+
   handleChangeFile = e => {
     e.preventDefault()
-    const file = this.document.querySelector(`input[data-testid="file"]`).files[0]
-    // si le fichier n'est pas au format pdf on envoi une alerte pour informer que le format n'est pas bon 
-    
-    if (file.type !== "application/pdf") {
-      alert("Seuls les fichiers PDF sont autorisés.");
-      return;
-    }
+    const file = e.target.files[0];
+    if (e.target.value) { 
+
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i; // Extensions autorisées
+    
+    if (!allowedExtensions.exec(filePath)) {
+        alert('Veuillez télécharger un fichier image valide. Les extensions autorisées sont .jpg, .jpeg et .png');
+        e.target.value = ''; // Réinitialise le champ du fichier
+        return false;
+    }
+
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
     formData.append('file', file)
@@ -48,7 +53,11 @@ export default class NewBill {
         this.fileUrl = fileUrl
         this.fileName = fileName
       }).catch(error => console.error(error))
+    } else {
+      console.error("File path is undefined");
+    }
   }
+
   handleSubmit = e => {
     e.preventDefault()
     console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
