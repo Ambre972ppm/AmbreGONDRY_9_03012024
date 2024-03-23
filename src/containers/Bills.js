@@ -9,7 +9,7 @@ export default class {
     this.store = store
     const buttonNewBill = document.querySelector(`button[data-testid="btn-new-bill"]`)
     if (buttonNewBill) buttonNewBill.addEventListener('click', this.handleClickNewBill)
-    const iconNewBill = document.querySelector(`div[data-testid="icon-mail"]`)// test
+    const iconNewBill = document.querySelector(`div[data-testid="icon-mail"]`)
     if (iconNewBill) iconNewBill.addEventListener('click', this.handleClickNewBill)
     const iconEye = document.querySelectorAll(`div[data-testid="icon-eye"]`)
     if (iconEye) iconEye.forEach(icon => {
@@ -26,7 +26,7 @@ export default class {
     const billUrl = icon.getAttribute("data-bill-url")
     const imgWidth = Math.floor($('#modaleFile').width() * 0.35)
     $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`)
-    $('#modaleFile').find(".modal-footer").html(`<div class="modal-button-download"><a href="${billUrl}" download="justificatif" id='btn-download-bill' class="btn btn-primary">Télecharger <img src="./src/assets/svg/download.svg"></a></div>`)
+    $('#modaleFile').find(".modal-footer").html(`<div class="modal-button-download"><a href="${billUrl}" download="justificatif.jpg" id='btn-download-bill' class="btn btn-primary">Télécharger <img src="./src/assets/svg/download.svg"></a></div>`)
     $('#modaleFile').modal('show')
   }
 
@@ -56,6 +56,7 @@ export default class {
             }
           })
           console.log('length', bills.length)
+          console.log('bills', bills)
         return bills
       })
     }
