@@ -57,7 +57,7 @@ describe("Login Component", () => {
       });
     });
   
-    // Test 2 : Je suis un visiteur non connecté, je remplis des champs dans un format inccorect et je soumet le formulaire
+    // Test 2 : Je suis un visiteur non connecté, je remplis des champs dans un format incorrect et je soumet le formulaire
     // de connexion en tant qu'employee, je devrais donc rester sur la page de connexion
     describe("When I do fill fields in incorrect format and I click on employee button Login In", () => {
       test("Then It should renders Login page", () => {

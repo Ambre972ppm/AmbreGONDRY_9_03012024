@@ -15,6 +15,8 @@ import router from "../app/Router"
 
 jest.mock("../app/store", () => mockStore)
 
+// Test 1 : Puisque je suis connecté en tant qu'Admin, quand je suis sur la page Dashboard avec des notes de frais existantes dont une en attente, 
+// alors le filtre des notes de frais par statut "en attente" devrait retourner 1 note de frais.
 describe('Given I am connected as an Admin', () => {
   describe('When I am on Dashboard page, there are bills, and there is one pending', () => {
     test('Then, filteredBills by pending status should return 1 bill', () => {
@@ -22,24 +24,34 @@ describe('Given I am connected as an Admin', () => {
       expect(filtered_bills.length).toBe(1)
     })
   })
+
+  // Test 2 : Puisque je suis connecté en tant qu'Admin, quand je suis sur la page Dashboard avec des notes de frais existantes dont une en acceptée, 
+ // alors le filtre des notes de frais par statut "accepted" devrait retourner 1 facture.
   describe('When I am on Dashboard page, there are bills, and there is one accepted', () => {
     test('Then, filteredBills by accepted status should return 1 bill', () => {
       const filtered_bills = filteredBills(bills, "accepted")
       expect(filtered_bills.length).toBe(1)
     })
   })
+  
+  // Test 3 : Puisque je suis connecté en tant qu'Admin, quand je suis sur la page Dashboard avec des notes de frais existantes dont 2 refusées
+  // alors le filtre des notes de frais statut "refused" devrait retourner 2 factures.
   describe('When I am on Dashboard page, there are bills, and there is two refused', () => {
     test('Then, filteredBills by accepted status should return 2 bills', () => {
       const filtered_bills = filteredBills(bills, "refused")
       expect(filtered_bills.length).toBe(2)
     })
   })
+
+  // Test 4 : Quand je suis sur la page Dashboard en état de chargement, la page de chargement doit être affichée.
   describe('When I am on Dashboard page but it is loading', () => {
     test('Then, Loading page should be rendered', () => {
       document.body.innerHTML = DashboardUI({ loading: true })
       expect(screen.getAllByText('Loading...')).toBeTruthy()
     })
   })
+
+  // Test 5 : Quand je suis sur la page Dashboard en cas d'erreur de back-end, la page d'erreur doit être affichée.
   describe('When I am on Dashboard page but back-end send an error message', () => {
     test('Then, Error page should be rendered', () => {
       document.body.innerHTML = DashboardUI({ error: 'some error message' })
@@ -47,6 +59,8 @@ describe('Given I am connected as an Admin', () => {
     })
   })
 
+  // Test 6 : Quand je suis sur la page Dashboard et que je clique sur la flèche, elle devrait dérouler la liste des notes de frais, 
+  // et afficher les cartes.
   describe('When I am on Dashboard page and I click on arrow', () => {
     test('Then, tickets list should be unfolding, and cards should appear', async () => {
 
@@ -91,6 +105,8 @@ describe('Given I am connected as an Admin', () => {
     })
   })
 
+  // Test 7 : Quand je suis sur la page Dashboad et que je clique sur l'icône d'une 
+  // note de frais, alors le formulaire de la note devrait être rempli.
   describe('When I am on Dashboard page and I click on edit icon of a card', () => {
     test('Then, right form should be filled',  () => {
 
@@ -119,6 +135,8 @@ describe('Given I am connected as an Admin', () => {
     })
   })
 
+  // Test 8 : Quand je suis sur la page Dashboard et que je clique 2 fois sur l'icône d'édition d'une carte 
+  // note de frais, alors ça doit afficher une grande icône de facture.
   describe('When I am on Dashboard page and I click 2 times on edit icon of a card', () => {
     test('Then, big bill Icon should Appear',  () => {
 
@@ -150,7 +168,8 @@ describe('Given I am connected as an Admin', () => {
     })
   })
 
-
+  // Test 9 : Quand je suis sur la page Dashboard et qu'il n'y a aucune note de frais alors 
+  // aucune carte de note ne doit être affichée.
   describe('When I am on Dashboard and there are no bills', () => {
     test('Then, no cards should be shown', () => {
       document.body.innerHTML = cards([])
@@ -160,6 +179,9 @@ describe('Given I am connected as an Admin', () => {
   })
 })
 
+// Test 10 : Puisque je suis connécté en tant qu'Admin et que je suis sur la page Dashboard et que j'ai cliqué sur une note de frais
+// en attente quand je clique sur le bouton accepter, alors je devrais être redirigé sur la page Dashboard avec l'icône de facture au lieu du formulaire de la
+// note de frais accepté.
 describe('Given I am connected as Admin, and I am on Dashboard page, and I clicked on a pending bill', () => {
   describe('When I click on accept button', () => {
     test('I should be sent on Dashboard with big billed icon instead of form', () => {
@@ -186,6 +208,10 @@ describe('Given I am connected as Admin, and I am on Dashboard page, and I click
       expect(bigBilledIcon).toBeTruthy()
     })
   })
+
+  // Test 11 : Quand je suis sur le Dashboard et que j'ai cliqué sur une note de frais en attente 
+  // quand je clique sur le bouton refuser, alors je devrait également être redirigé sur la page Dashboard avec l'icône de 
+  // facture au lieu du formulaire de la note de frais refusé.
   describe('When I click on refuse button', () => {
     test('I should be sent on Dashboard with big billed icon instead of form', () => {
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
@@ -212,6 +238,8 @@ describe('Given I am connected as Admin, and I am on Dashboard page, and I click
   })
 })
 
+// Test 12 : Puisque je suis connécté en tant qu'Admin et que je suis sur le Dashboard et qie j'ai cliqué sur une note de frais 
+// quand je clique sur l'icône œil alors une modale avec le justificatif devrait s'ouvrir.
 describe('Given I am connected as Admin and I am on Dashboard page and I clicked on a bill', () => {
   describe('When I click on the icon eye', () => {
     test('A modal should open', () => {
@@ -240,10 +268,11 @@ describe('Given I am connected as Admin and I am on Dashboard page and I clicked
   })
 })
 
-// test d'intégration GET
-describe("Given I am a user connected as Admin", () => {
-  describe("When I navigate to Dashboard", () => {
-    test("fetches bills from mock API GET", async () => {
+// Tests d'intégration GET
+// Test 13 : lorsque je navigue vers le Dashboard, 
+// les notes de frais devraient être récupérées depuis l'API mocké.
+describe("When I navigate to Dashboard", () => {
+  test("fetches bills from mock API GET", async () => {
       localStorage.setItem("user", JSON.stringify({ type: "Admin", email: "a@a" }));
       const root = document.createElement("div")
       root.setAttribute("id", "root")
@@ -253,10 +282,14 @@ describe("Given I am a user connected as Admin", () => {
       await waitFor(() => screen.getByText("Validations"))
       const contentPending  = await screen.getByText("En attente (1)")
       expect(contentPending).toBeTruthy()
+      const contentAccepted  = await screen.getByText("Validé (1)")
+      expect(contentAccepted).toBeTruthy()
       const contentRefused  = await screen.getByText("Refusé (2)")
       expect(contentRefused).toBeTruthy()
+      
       expect(screen.getByTestId("big-billed-icon")).toBeTruthy()
-    })
+  })
+
   describe("When an error occurs on API", () => {
     beforeEach(() => {
       jest.spyOn(mockStore, "bills")
@@ -274,8 +307,9 @@ describe("Given I am a user connected as Admin", () => {
       document.body.appendChild(root)
       router()
     })
-    test("fetches bills from an API and fails with 404 message error", async () => {
 
+    // Test 14 : Gérer les erreurs d'API lors de la récupération des notes de frais.
+    test("fetches bills from an API and fails with 404 message error", async () => {
       mockStore.bills.mockImplementationOnce(() => {
         return {
           list : () =>  {
@@ -289,7 +323,6 @@ describe("Given I am a user connected as Admin", () => {
     })
 
     test("fetches messages from an API and fails with 500 message error", async () => {
-
       mockStore.bills.mockImplementationOnce(() => {
         return {
           list : () =>  {
@@ -302,8 +335,6 @@ describe("Given I am a user connected as Admin", () => {
       const message = await screen.getByText(/Erreur 500/)
       expect(message).toBeTruthy()
     })
-  })
-
   })
 })
 
