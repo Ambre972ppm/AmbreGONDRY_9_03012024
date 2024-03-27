@@ -22,17 +22,17 @@ export default class NewBill {
   handleChangeFile = e => {
     e.preventDefault()
     const file = e.target.files[0];
-    
     if (e.target.value) { 
-      const filePath = e.target.value.split(/\\/g)
-      const fileName = filePath[filePath.length-1]
-      const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i; // Extensions autorisées
+
+    const filePath = e.target.value.split(/\\/g)
+    const fileName = filePath[filePath.length-1]
+    const allowedExtensions = /(\.jpg|\.jpeg|\.png)$/i; // Extensions autorisées
     
-      if (!allowedExtensions.exec(filePath)) {
-          alert('Veuillez télécharger un fichier image valide. Les extensions autorisées sont .jpg, .jpeg et .png');
-          e.target.value = ''; // Réinitialise le champ du fichier
-          return false;
-      }
+    if (!allowedExtensions.exec(filePath)) {
+        alert('Veuillez télécharger un fichier image valide. Les extensions autorisées sont .jpg, .jpeg et .png');
+        e.target.value = ''; // Réinitialise le champ du fichier
+        return false;
+    }
 
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email

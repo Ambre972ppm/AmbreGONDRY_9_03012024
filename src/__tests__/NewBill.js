@@ -70,7 +70,7 @@ describe("Given I am logged in as an employee", () => {
             });
         });
 
-        // Test 4 : Puisque je suis sur la page nouvelle note de frais, Quand  
+        // Test 4 : Puisque je suis sur la page nouvelle note de frais,  
         //  Quand je charge un fichier au mauvais format alors il n'est pas accepté
         describe("When I upload a file with the wrong format", () => {
             test("Then the file should not be accepted, and an error message should be shown", async () => {
@@ -113,7 +113,9 @@ describe("Given I am logged in as an employee", () => {
                 jest.resetAllMocks();
             });
         });
-
+       
+        // Test 5 : Puisque je suis sur la page nouvelle note de frais,  
+        //  Quand je charge un fichier au bon format et que je soumet le formulaire, alors je suis redirigé vers mes notes de frais
         describe("When I submit the form with an image file", () => {
             test("Then the form should be submitted and I should be redirected to the Bills page", async () => {
                 const onNavigate = jest.fn((pathname) => {

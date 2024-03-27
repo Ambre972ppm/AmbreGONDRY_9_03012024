@@ -165,11 +165,11 @@ describe("Given I am connected as an employee", () => {
 });
 
 // Test 6: En tant qu'employé connecté, en naviguant vers Bills.js,
-// les factures devraient être récupérées depuis l'API.
+// les notes de frais devraient être récupérées depuis l'API.
 describe("Given I am a user connected as employee", () => {
   describe("When I navigate to Bills.js", () => {
     test("fetches bills from mock API GET", async () => {
-      // Configuration du localStorage et navigation vers la page des factures
+      // Configuration du localStorage et navigation vers la page des notes de frais
       localStorage.setItem(
         "user",
         JSON.stringify({ type: "Employee", email: "a@a" })
@@ -179,13 +179,13 @@ describe("Given I am a user connected as employee", () => {
       document.body.append(root);
       router();
       window.onNavigate(ROUTES_PATH.Bills);
-      // Vérification de l'affichage des factures
+      // Vérification de l'affichage des notes de frais
       await waitFor(() => screen.getByText("Mes notes de frais"));
       expect(bills).toBeTruthy();
     });
   });
 
-  // Test 7: En cas d'erreur 404 de l'API lors de la récupération des factures,
+  // Test 7: En cas d'erreur 404 de l'API lors de la récupération des notes de frais,
   // un message d'erreur devrait s'afficher.
   describe("When an error occurs on API", () => {
     beforeEach(() => {

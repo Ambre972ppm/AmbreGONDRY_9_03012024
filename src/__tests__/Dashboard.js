@@ -51,7 +51,7 @@ describe('Given I am connected as an Admin', () => {
     })
   })
 
-  // Test 5 : Quand je suis sur la page Dashboard en cas d'erreur de back-end, la page d'erreur doit être affichée.
+  // Test 5 : Quand je suis sur la page Dashboard en cas d'erreur du back-end, la page d'erreur doit être affichée.
   describe('When I am on Dashboard page but back-end send an error message', () => {
     test('Then, Error page should be rendered', () => {
       document.body.innerHTML = DashboardUI({ error: 'some error message' })
@@ -105,9 +105,9 @@ describe('Given I am connected as an Admin', () => {
     })
   })
 
-  // Test 7 : Quand je suis sur la page Dashboad et que je clique sur l'icône d'une 
+  // Test 7 : Quand je suis sur la page Dashboard et je clique sur une 
   // note de frais, alors le formulaire de la note devrait être rempli.
-  describe('When I am on Dashboard page and I click on edit icon of a card', () => {
+  describe('When I am on Dashboard page and I click on a bill', () => {
     test('Then, right form should be filled',  () => {
 
       const onNavigate = (pathname) => {
@@ -169,7 +169,7 @@ describe('Given I am connected as an Admin', () => {
   })
 
   // Test 9 : Quand je suis sur la page Dashboard et qu'il n'y a aucune note de frais alors 
-  // aucune carte de note ne doit être affichée.
+  // aucune carte de note de frais ne doit être affichée.
   describe('When I am on Dashboard and there are no bills', () => {
     test('Then, no cards should be shown', () => {
       document.body.innerHTML = cards([])
