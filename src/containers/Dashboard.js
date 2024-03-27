@@ -88,28 +88,41 @@ export default class {
   }
 
   handleEditTicket(e, bill, bills) {
-    if (this.counter === undefined || this.id !== bill.id) this.counter = 0
-    if (this.id === undefined || this.id !== bill.id) this.id = bill.id
-    if (this.counter % 2 === 0) {
-      bills.forEach(b => {
-        $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
-      })
-      $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
-      $('.dashboard-right-container div').html(DashboardFormUI(bill))
-      $('.vertical-navbar').css({ height: '150vh' })
-      this.counter ++
-    } else {
-      $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
-
+    const currentSelectedBillId = this.billId;
+  
+    if(currentSelectedBillId != bill.id) {
+      // si la note de frais sur laquelle je clique est différente de celle affichée alors
+      // j'ouvre le formulaire de la nouvelle note de frais selectionnée en appellant le html du formulaire sur la droite
+      // avec les données de la note de frais
+      bills.forEach((b) => {
+        $(`#open-bill${b.id}`).css({ background: '#0D5AE5' });
+      });
+      $(`#open-bill${bill.id}`).css({ background: '#2A2B35' });
+      $('.dashboard-right-container div').html(DashboardFormUI(bill));
+      $('.vertical-navbar').css({ height: '150vh' });
+  
+      // je met à jour la variable de la note de frais selectionnée
+      this.billId = bill.id;
+      
+    } else if (currentSelectedBillId === bill.id) {
+      // Si je clique sur la meme note de frais alors le formulaire est remplacé par l'icone de facture
+      $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' });
       $('.dashboard-right-container div').html(`
         <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
-      `)
-      $('.vertical-navbar').css({ height: '120vh' })
-      this.counter ++
+      `);
+      $('.vertical-navbar').css({ height: '120vh' });
+      
+      // je retire l'id selectionné
+      this.billId = null;
     }
-    $('#icon-eye-d').click(this.handleClickIconEye)
-    $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill))
-    $('#btn-refuse-bill').click((e) => this.handleRefuseSubmit(e, bill))
+  
+    // on ecoutes les prochains clics sur les cartes
+    bills.forEach(bill => {
+      $(`#open-bill${bill.id}`).off('click').click((e) => this.handleEditTicket(e, bill, bills));
+    });
+    $('#icon-eye-d').off('click').click(this.handleClickIconEye);
+    $('#btn-accept-bill').off('click').click((e) => this.handleAcceptSubmit(e, bill));
+    $('#btn-refuse-bill').off('click').click((e) => this.handleRefuseSubmit(e, bill));
   }
 
   handleAcceptSubmit = (e, bill) => {
